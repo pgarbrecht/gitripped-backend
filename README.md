@@ -1,2 +1,2 @@
 # gitripped-backend
-Back end files for the GitRipped app
+Project notes will go here.
