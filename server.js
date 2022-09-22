@@ -6,6 +6,12 @@ const methodOverride = require('method-override');
 //require model
 const Exercise = require('./models/Exercise.js')
 
+//INTERNAL MODULES
+const exercisesCtrl = require("./controllers/exercises.ctrl.js")
+app.use('/exercises', exercisesCtrl)
+//👆sending the default route over to the controller
+//can add additional controllers here
+
 //Environment variables
 require('dotenv').config();
 const PORT = process.env.PORT;
@@ -31,10 +37,10 @@ mongoose
 // establishing the connection between MongoDB Atlas
 
 // Default route
-app.get('/exercises', (req, res) => {
-    const today = new Date();
-    res.send('server working');
- });
+// app.get('/exercises', (req, res) => {
+//     const today = new Date();
+//     res.send('server working');
+//  });
 
 //seed route
 
