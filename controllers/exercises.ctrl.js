@@ -1,12 +1,17 @@
-const express = require('express')
-const Exercise = require('../models/Exercise.js')
-const router = express.Router()
+// const express = require('express')
+const db = require('../models')
+// const router = express.Router()
 
-router.get('/', (req, res) => {
-    Exercise.find(
-    {}, (err, allExercises) => {
-        res.send('router works')
+const index = (req, res) => {
+    db.Exercise.find(
+        {}, (err, allExercises) => {
+            res.send('router works')
     })
-})
+}
 
-module.exports = router
+module.exports = {
+    index,
+    // create,
+    // update,
+    // destroy
+}

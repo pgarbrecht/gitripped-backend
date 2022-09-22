@@ -7,8 +7,10 @@ const methodOverride = require('method-override');
 const Exercise = require('./models/Exercise.js')
 
 //INTERNAL MODULES
-const exercisesCtrl = require("./controllers/exercises.ctrl.js")
-app.use('/exercises', exercisesCtrl)
+const routes = require('./routes')
+
+//ROUTES
+app.use('/exercises', routes.exercises)
 //👆sending the default route over to the controller
 //can add additional controllers here
 
@@ -28,45 +30,13 @@ app.use(methodOverride("_method"))
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
+// establishing the connection between MongoDB Atlas
 mongoose
 .connect(process.env.MONGODB_URI, { useNewUrlParser: true})
 .then(()=>{
     console.log(`Mongodb connected at ${db.host}:${db.port}`)
 })
 .catch((err)=>console.log(err))
-// establishing the connection between MongoDB Atlas
-
-// Default route
-// app.get('/exercises', (req, res) => {
-//     const today = new Date();
-//     res.send('server working');
-//  });
-
-//seed route
-
-// app.get('/seed', async (req, res) => {
-//     const newExercises = [
-//         {name: "squat",
-//         description: "lower body exercise with barbell",
-//         exerciseImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Squats.svg/2560px-Squats.svg.png",
-//         muscles: "gluts/legs",
-//         notes: "recommended weight: 150 lbs.",
-//         }, 
-//         {name: "bench press",
-//         description: "upper body exercise with barbell",
-//         exerciseImage: "https://www.taylorsstrength.co.uk/wp-content/uploads/2017/11/Rec-Bench-Press.jpg",
-//         muscles: "chest/upper back",
-//         notes: "recommended weight: 200 lbs.",
-//         }, 
-//     ]
-//     try {
-//         const seedItems = await Exercise.create(newExercises)
-//         res.send(seedItems)
-//     }
-//     catch (err) {
-//         res.send(err.message)
-//     }
-//     })
 
 //Confirmation server is working
 app.listen(PORT, () => {
