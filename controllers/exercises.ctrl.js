@@ -1,7 +1,6 @@
-// const express = require('express')
 const db = require('../models')
-// const router = express.Router()
 
+//index route shows all exercises data in the database as a json
 const index = (req, res) => {
     db.Exercise.find(
         {}, (error, allExercises) => {

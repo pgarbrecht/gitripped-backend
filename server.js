@@ -10,6 +10,7 @@ const Exercise = require('./models/Exercise.js')
 const routes = require('./routes')
 
 //ROUTES
+//this makes all routes start with /exercises on local or deployed at heroku
 app.use('/exercises', routes.exercises)
 //👆sending the default route over to the controller
 //can add additional controllers here
