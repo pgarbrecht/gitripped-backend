@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const methodOverride = require('method-override');
+const cors = require('cors');
 
 //require model
 const Exercise = require('./models/Exercise.js')
@@ -18,6 +19,25 @@ app.use('/exercises', routes.exercises)
 //Environment variables
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
+
+// Setup Cors middleware
+const whitelist = ['http://localhost:3000', `${process.env.FRONTEND_URL}`];
+const corsOptions = {
+	origin: (origin, callback) => {
+		console.log(whitelist, "WHITELIST")
+		console.log(origin, "ORIGIN")
+		if (whitelist.indexOf(origin) !== -1 || !origin) {
+			callback(null, true);
+		} else {
+			callback(new Error('Not allowed by CORS'));
+		}
+	},
+	// This is needed for accept credentials from the front-end
+	// not needed if we do not implementing authentication
+	// credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 //MIDDLEWARE
 app.use(express.json())
