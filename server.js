@@ -16,7 +16,7 @@ app.use('/exercises', routes.exercises)
 
 //Environment variables
 require('dotenv').config();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 //MIDDLEWARE
 app.use(express.json())
