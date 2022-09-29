@@ -10,18 +10,12 @@ const Exercise = require('./models/Exercise.js')
 //INTERNAL MODULES
 const routes = require('./routes')
 
-//ROUTES
-//this makes all routes start with /exercises on local or deployed at heroku
-app.use('/exercises', routes.exercises)
-//👆sending the default route over to the controller
-//can add additional controllers here
-
 //Environment variables
 require('dotenv').config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3003;
 
 // Setup Cors middleware
-const whitelist = ['http://localhost:3000', `${process.env.FRONTEND_URL}`];
+const whitelist = [`${process.env.FRONTEND_URL}`, `https://gitripped-app.herokuapp.com`];
 const corsOptions = {
 	origin: (origin, callback) => {
 		console.log(whitelist, "WHITELIST")
@@ -37,15 +31,21 @@ const corsOptions = {
 	// credentials: true,
 };
 
-app.use(cors(corsOptions));
-
 //MIDDLEWARE
+//cors for cross-domain approval
+app.use(cors(corsOptions));
 app.use(express.json())
 //body data middleware
 app.use(express.urlencoded({extended: true}))
 //method override Middleware
 app.use(methodOverride("_method"))
 //serve public files
+
+//ROUTES
+//this makes all routes start with /exercises on local or deployed at heroku
+app.use('/exercises', routes.exercises)
+//👆sending the default route over to the controller
+//can add additional controllers here
 
 //Connect to Mongoose server
 const mongoose = require('mongoose');
