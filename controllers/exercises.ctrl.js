@@ -13,9 +13,18 @@ const index = (req, res) => {
     });
 };
 
+// create a POST route to create new exercised 
+const create = (req, res) => {
+    db.Exercise.create(
+        req.body, (error, createdExercise) => {
+            if(error) return res.status(400).json({ error: error.message });
+            return res.status(200).json(createdExercise)
+        })
+}
+
 module.exports = {
     index,
-    // create,
+    create,
     // update,
     // destroy
 }
