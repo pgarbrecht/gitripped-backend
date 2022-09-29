@@ -3,6 +3,6 @@ const router = express.Router()
 const ctrls = require("../controllers")
 
 router.get("/", ctrls.exercises.index)
-router.post("/", ctrls.exercises.create)
+router.post("/new", ctrls.exercises.create)
 
 module.exports = router;
