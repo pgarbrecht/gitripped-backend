@@ -4,17 +4,6 @@ const app = express();
 const methodOverride = require('method-override');
 const cors = require('cors');
 
-//Connect to Mongoose server
-const mongoose = require('mongoose');
-const db = mongoose.connection;
-
-// establishing the connection between MongoDB Atlas
-mongoose
-.connect(process.env.MONGODB_URI, { useNewUrlParser: true})
-.then(()=>{
-    console.log(`Mongodb connected at ${db.host}:${db.port}`)
-})
-.catch((err)=>console.log(err))
 
 //INTERNAL MODULES
 const routes = require('./routes')
@@ -26,13 +15,13 @@ const PORT = process.env.PORT || 3003;
 // Setup Cors middleware
 const whitelist = [`${process.env.FRONTEND_URL}`, `https://gitripped-app.herokuapp.com`];
 const corsOptions = {
-	origin: (origin, callback) => {
-		console.log(whitelist, "WHITELIST")
+    origin: (origin, callback) => {
+        console.log(whitelist, "WHITELIST")
 		console.log(origin, "ORIGIN")
 		if (whitelist.indexOf(origin) !== -1 || !origin) {
-			callback(null, true);
+            callback(null, true);
 		} else {
-			callback(new Error('Not allowed by CORS'));
+            callback(new Error('Not allowed by CORS'));
 		}
 	},
 	// This is needed for accept credentials from the front-end
@@ -55,6 +44,17 @@ app.use(methodOverride("_method"))
 app.use('/exercises', routes.exercises)
 //👆sending the default route over to the controller
 //can add additional controllers here
+
+//Connect to Mongoose server
+const mongoose = require('mongoose');
+const db = mongoose.connection;
+
+// establishing the connection between MongoDB Atlas
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true})
+.then(()=>{
+    console.log(`Mongodb connected at ${db.host}:${db.port}`)
+})
+.catch((err)=>console.log(err))
 
 //Confirmation server is working
 app.listen(PORT, () => {
