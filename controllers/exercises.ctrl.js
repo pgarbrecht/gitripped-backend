@@ -40,9 +40,20 @@ const update = (req, res) =>{
     )
 }
 
+//delete route
+const destroy = (req, res) => {
+    db.Exercise.findByIdAndDelete(req.params.id, (error, deletedExercise) => {
+        if(!deletedExercise) return res.status(400).json({error: "Exercise not found"})
+        if(error) return res.status(400).json({error: error.message})
+        return res.status(200).json({
+            message: `Exercise ${deletedExercise.name} deleted successfully! `
+    })
+    })
+}
+
 module.exports = {
     index,
     create,
     update,
-    // destroy
+    destroy
 }
