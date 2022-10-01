@@ -20,8 +20,10 @@ const create = (req, res) => {
             if(error) return res.status(400).json({ error: error.message });
             return res.status(200).json(createdExercise)
             console.log(createdExercise)
+            
         }
     )
+    // res.redirect('http://localhost:3000/')
 }
 
 module.exports = {
