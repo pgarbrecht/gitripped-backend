@@ -26,9 +26,23 @@ const create = (req, res) => {
     // res.redirect('http://localhost:3000/')
 }
 
+//put route
+const update = (req, res) =>{
+    db.Exercise.findByIdAndUpdate(req.params.id,
+        {
+            $set: req.body
+        },
+        {new: true},
+        (err, updatedExercise) => {
+            if(err) return res.status(400).json({error: err.message})
+            return res.status(200).json(updatedExercise) 
+        }
+    )
+}
+
 module.exports = {
     index,
     create,
-    // update,
+    update,
     // destroy
 }
