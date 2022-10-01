@@ -4,8 +4,17 @@ const app = express();
 const methodOverride = require('method-override');
 const cors = require('cors');
 
-//require model
-const Exercise = require('./models/Exercise.js')
+//Connect to Mongoose server
+const mongoose = require('mongoose');
+const db = mongoose.connection;
+
+// establishing the connection between MongoDB Atlas
+mongoose
+.connect(process.env.MONGODB_URI, { useNewUrlParser: true})
+.then(()=>{
+    console.log(`Mongodb connected at ${db.host}:${db.port}`)
+})
+.catch((err)=>console.log(err))
 
 //INTERNAL MODULES
 const routes = require('./routes')
@@ -46,18 +55,6 @@ app.use(methodOverride("_method"))
 app.use('/exercises', routes.exercises)
 //👆sending the default route over to the controller
 //can add additional controllers here
-
-//Connect to Mongoose server
-const mongoose = require('mongoose');
-const db = mongoose.connection;
-
-// establishing the connection between MongoDB Atlas
-mongoose
-.connect(process.env.MONGODB_URI, { useNewUrlParser: true})
-.then(()=>{
-    console.log(`Mongodb connected at ${db.host}:${db.port}`)
-})
-.catch((err)=>console.log(err))
 
 //Confirmation server is working
 app.listen(PORT, () => {
