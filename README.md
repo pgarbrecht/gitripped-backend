@@ -1,7 +1,1 @@
-# gitripped-backend
-Project notes will go here.
--Emilio 
--Phil
-- Christina
-
--Emilio created a branch
+This backend hosts data for our project. Link to Deployed Application (Backend): https://gitripped-backend.herokuapp.com/exercises
